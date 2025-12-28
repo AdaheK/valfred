@@ -3,7 +3,7 @@ import TopBar  from "@/components/layout/Topbar"
 import { Hero } from "@/components/hero/Hero"
 import { BattleCards } from "@/components/battle/BattleCards"
 import { SuccessStories } from "@/components/stories/SuccessStories"
-import { TrustSection } from "@/components/trust/TrustStories"
+import { SecureChatsBlock } from "@/components/trust/SecureChatsBlock"
 
 export default function HomePage() {
   return (
@@ -15,7 +15,7 @@ export default function HomePage() {
         <Hero />
         <BattleCards />
         <SuccessStories />
-        <TrustSection />
+        <SecureChatsBlock />
       </div>
     </AppLayout>
   );
