@@ -4,12 +4,12 @@ import React from "react";
 
 type SuccessStory = {
   id: string;
-  imageSrc: string; // hero image
-  brandLogoSrc: string; // small logo over image
-  title: string; // "Retail : +32% ..."
-  consultations: string; // "46 consultations"
-  deltaPercent: string; // "+6%" or "-3%"
-  deltaRest: string; // "ces 7 derniers jours"
+  imageSrc: string;
+  brandLogoSrc: string;
+  title: string;
+  consultations: string;
+  deltaPercent: string;
+  deltaRest: string;
   deltaTone: "up" | "down";
   ctaLabel?: string;
 };
@@ -37,10 +37,8 @@ function SuccessStoryCard({ item }: { item: SuccessStory }) {
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* vignette */}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.40)_100%)]" />
 
-        {/* brand logo (bottom-left) */}
         <img
           src={item.brandLogoSrc}
           alt=""
@@ -50,10 +48,8 @@ function SuccessStoryCard({ item }: { item: SuccessStory }) {
 
       {/* Text block */}
       <div className="mt-4">
-        {/* Title (Figma params) */}
         <h3
           className="
-            w-[298px] h-[44px]
             font-['Bricolage_Grotesque']
             font-bold
             text-[18px]
@@ -65,40 +61,32 @@ function SuccessStoryCard({ item }: { item: SuccessStory }) {
           {item.title}
         </h3>
 
-        {/* Consultations (Figma params) */}
         <div
           className="
             mt-3
-            w-[200px] h-[21px]
             font-['Bricolage_Grotesque']
             font-normal
             text-[14px]
-            leading-[50%]
-            tracking-[0]
+            leading-[150%]
             text-white/70
           "
         >
           {item.consultations}
         </div>
 
-        {/* Delta row (icon 16x16 + text with colored percent) */}
         <div className="mt-2 flex items-center gap-2">
-          {/* icon 16x16 */}
           <img
             src={isUp ? "/icons/up.svg" : "/icons/down.svg"}
             alt=""
             className="w-[16px] h-[16px] opacity-100"
           />
 
-          {/* Text (Figma params) */}
           <div
             className="
-              w-[163px] h-[21px]
               font-['Bricolage_Grotesque']
               font-normal
               text-[14px]
               leading-[150%]
-              tracking-[0]
               text-white
               whitespace-nowrap
             "
@@ -197,7 +185,7 @@ export function SuccessStories() {
         ))}
       </div>
 
-      {/* Bottom button (optional, keep if needed) */}
+      {/* ✅ Bottom button transparent (comme battlecards) */}
       <div className="mt-8 flex justify-center">
         <button
           className="
@@ -205,14 +193,12 @@ export function SuccessStories() {
             w-[260px] h-[40px]
             px-[16px] py-[8px]
             rounded-full
-            bg-[rgba(255,255,255,0.08)]
-            backdrop-blur-[24px]
-            shadow-[0px_2px_40px_rgba(0,0,0,0.10)]
+            bg-transparent
             font-['Bricolage_Grotesque']
             text-[14px]
             font-medium
             text-white
-            hover:bg-[rgba(255,255,255,0.12)]
+            hover:opacity-90
             transition
           "
         >

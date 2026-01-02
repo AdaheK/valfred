@@ -6,40 +6,54 @@ const suggestions = [
 
 export function PromptSuggestions() {
   return (
-    <div className="mx-auto w-full max-w-2xl">
-      <p className="text-left text-[10px] tracking-[0.18em] text-white/40 mb-4">
+    <div className="w-full max-w-[682px] flex flex-col gap-2">
+      <p
+        className="text-[12px] uppercase text-white/60 tracking-[0.1em]"
+        style={{
+          fontFamily: "Bricolage Grotesque, system-ui",
+          fontWeight: 500,
+        }}
+      >
         SUGGESTIONS DE VALFRED
       </p>
 
-      <div className="border-t border-white/10">
+      <div className="w-full">
         {suggestions.map((s, i) => (
           <button
             key={i}
             type="button"
             className="
-              w-full
-              flex items-center gap-3
-              py-4
+              w-full h-[64px]
+              flex items-center gap-6
+              px-4
               text-left
               border-b border-white/10
-              hover:bg-white/[0.03]
-              transition
+              rounded-lg
+              cursor-pointer
+              hover:bg-white/[0.06]
+              transition-colors duration-200
             "
           >
             <img
               src="/icons/Exclude.svg"
               alt=""
-              className="h-4 w-4 shrink-0 opacity-95"
+              className="w-4 h-4 shrink-0 opacity-95"
             />
 
-            <span className="flex-1 text-[13px] text-white/80 leading-relaxed">
+            <span
+              className="flex-1 text-[16px] leading-[150%] text-white"
+              style={{
+                fontFamily: "Bricolage Grotesque, system-ui",
+                fontWeight: 400,
+              }}
+            >
               {s}
             </span>
 
             <img
               src="/icons/fleche_fine.svg"
               alt=""
-              className="h-4 w-4 shrink-0 opacity-60"
+              className="w-4 h-4 shrink-0 opacity-80"
             />
           </button>
         ))}

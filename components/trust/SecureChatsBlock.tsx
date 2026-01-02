@@ -245,14 +245,12 @@ export function SecureChatsBlock() {
             w-[260px] h-[40px]
             px-[16px] py-[8px]
             rounded-full
-            bg-[rgba(255,255,255,0.08)]
-            backdrop-blur-[24px]
-            shadow-[0px_2px_40px_rgba(0,0,0,0.10)]
+            bg-transparent
             font-['Bricolage_Grotesque']
             text-[14px]
             font-medium
             text-white
-            hover:bg-[rgba(255,255,255,0.12)]
+            hover:opacity-90
             transition
           "
         >

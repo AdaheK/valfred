@@ -11,7 +11,7 @@ export default function HomePage() {
       <TopBar />
 
       {/* padding seulement pour le contenu sous la topbar */}
-      <div className="px-6 pt-6 space-y-20">
+      <div className="px-6 pt-6 space-y-12">
         <Hero />
         <BattleCards />
         <SuccessStories />

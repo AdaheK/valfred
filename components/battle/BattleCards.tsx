@@ -1,20 +1,14 @@
 "use client";
 
 type BackCardProps = {
-  /** Position + rotation (ex: "left-[2%] -rotate-6") */
   className?: string;
-  /** Outer size */
   wClass: string;
   hClass: string;
-  /** Inner (border) size */
   innerWClass: string;
   innerHClass: string;
-  /** Background gradient */
   bgClass: string;
-  /** Image */
   imgSrc: string;
   imgAlt?: string;
-  /** Image sizing/position */
   imgClassName?: string;
 };
 
@@ -42,10 +36,8 @@ function BackCard({
         className,
       ].join(" ")}
     >
-      {/* Background */}
       <div className={["absolute inset-0 rounded-[24px]", bgClass].join(" ")} />
 
-      {/* Inner border rectangle */}
       <div
         className={[
           "absolute",
@@ -57,7 +49,6 @@ function BackCard({
         ].join(" ")}
       />
 
-      {/* Image */}
       <div className="absolute inset-0 flex items-center justify-center">
         <img
           src={imgSrc}
@@ -93,11 +84,10 @@ export function BattleCards() {
         </h2>
       </div>
 
-      {/* Stage (cartes + CTA) */}
-      <div className="relative w-full min-h-[470px]">
+      {/* Stage */}
+      <div className="relative w-full min-h-[480px]">
         {/* Back cards - LEFT */}
         <div className="hidden md:block">
-          {/* Fond gauche (trophée) */}
           <BackCard
             className="left-[0%] -rotate-6 z-0"
             wClass="w-[400px]"
@@ -109,7 +99,6 @@ export function BattleCards() {
             imgClassName="w-[220px] h-[220px] translate-x-[-10px]"
           />
 
-          {/* Gauche proche (lock) */}
           <BackCard
             className="left-[150px] -rotate-3 z-10"
             wClass="w-[439px]"
@@ -124,7 +113,6 @@ export function BattleCards() {
 
         {/* Back cards - RIGHT */}
         <div className="hidden md:block">
-          {/* Droite proche (lock + check) */}
           <BackCard
             className="right-[150px] rotate-3 z-10"
             wClass="w-[430px]"
@@ -136,7 +124,6 @@ export function BattleCards() {
             imgClassName="w-[240px] h-[240px] translate-x-[6px]"
           />
 
-          {/* Fond droite (trophée) */}
           <BackCard
             className="right-[0%] rotate-6 z-0"
             wClass="w-[400px]"
@@ -188,7 +175,7 @@ export function BattleCards() {
               overflow-hidden
             "
           >
-            {/* Colonne gauche – Texte */}
+            {/* Colonne gauche */}
             <div className="flex flex-col justify-between max-w-[320px]">
               <h3
                 className="
@@ -217,6 +204,7 @@ export function BattleCards() {
                   ROI moyen atteint en 11 semaines
                 </p>
 
+                {/* ✅ BOUTON "Voir le détail" SANS RECTANGLE */}
                 <button
                   className="
                     inline-flex
@@ -227,18 +215,15 @@ export function BattleCards() {
                     px-6
                     whitespace-nowrap
                     rounded-full
-                    border
-                    border-transparent
-                    bg-[rgba(255,255,255,0.9)]
-                    shadow-[0px_2px_40px_rgba(0,0,0,0.10)]
-                    backdrop-blur-[24px]
+                    bg-[rgba(255,255,255,0.92)]
+                    shadow-[0px_2px_24px_rgba(0,0,0,0.10)]
                     font-['Bricolage_Grotesque']
                     text-[14px]
                     font-semibold
                     text-[rgba(3,33,52,1)]
                     hover:brightness-95
                     transition
-                    [border-image:linear-gradient(143.13deg,#FFFFFF_14.43%,rgba(255,255,255,0.02)_49.78%,#FFFFFF_85.12%)_1]
+                    outline-none
                   "
                 >
                   Voir le détail
@@ -246,7 +231,7 @@ export function BattleCards() {
               </div>
             </div>
 
-            {/* Colonne droite – Image */}
+            {/* Image */}
             <div className="absolute right-6 bottom-6 pointer-events-none">
               <img
                 src="/icons/cards.svg"
@@ -257,29 +242,27 @@ export function BattleCards() {
           </div>
         </div>
 
-        {/* Bottom button */}
-<div className="absolute left-0 right-0 bottom-[16px] flex justify-center">
-  <button
-    className="
-      flex items-center gap-[8px]
-      w-[232px] h-[40px]
-      px-[16px] py-[8px]
-      rounded-full
-      bg-[rgba(255,255,255,0.08)]
-      backdrop-blur-[24px]
-      shadow-[0px_2px_40px_rgba(0,0,0,0.1)]
-      font-['Bricolage_Grotesque']
-      text-[14px]
-      font-medium
-      text-white
-      hover:bg-[rgba(255,255,255,0.12)]
-      transition
-    "
-  >
-    Voir toutes les battlecards
-    <span className="text-[16px] leading-none">→</span>
-  </button>
-</div>
+        {/* ✅ CTA bottom "Voir toutes les battlecards" sans couleur */}
+        <div className="absolute left-0 right-0 bottom-[16px] flex justify-center">
+          <button
+            className="
+              flex items-center gap-[8px]
+              w-[232px] h-[40px]
+              px-[16px] py-[8px]
+              rounded-full
+              bg-transparent
+              text-white
+              font-['Bricolage_Grotesque']
+              text-[14px]
+              font-medium
+              hover:opacity-90
+              transition
+            "
+          >
+            Voir toutes les battlecards
+            <span className="text-[16px] leading-none">→</span>
+          </button>
+        </div>
       </div>
     </section>
   );

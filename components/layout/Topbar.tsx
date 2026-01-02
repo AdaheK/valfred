@@ -4,6 +4,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 type Option = { label: string; value: string };
 
+function cn(...classes: Array<string | false | undefined>) {
+  return classes.filter(Boolean).join(" ");
+}
+
 export default function Topbar() {
   const [query, setQuery] = useState("");
   const [range, setRange] = useState<"7" | "30">("7");
@@ -43,97 +47,112 @@ export default function Topbar() {
   }, []);
 
   return (
-    <div className="sticky top-0 z-50 w-full">
-      {/* Optionnel : un fond derrière la barre quand tu scroll */}
-      <div className="w-full bg-transparent">
-        {/* BARRE full-width, collée (pas de marge externe) */}
+    <div className="w-full">
+      <div
+        ref={ref}
+        className={cn(
+          "mx-auto w-full max-w-[1206px] h-[64px]",
+          "flex items-center justify-between",
+          "px-[32px] py-[12px]",
+          "border-b border-white/20"
+        )}
+      >
+        {/* ===== SEARCH (443x40) ===== */}
         <div
-          ref={ref}
-          className="
-            w-full h-14
-            flex items-center gap-4
-            px-5
-            bg-white/[0.04]
-            border-b border-white/10
-            backdrop-blur-md
-          "
+          className={cn(
+            "w-[443px] h-[40px] min-h-[36px]",
+            "flex items-center",
+            "gap-[8px]",
+            "rounded-lg"
+          )}
+          style={{ paddingLeft: 3, paddingRight: 2, paddingTop: 8, paddingBottom: 8 }}
         >
-          {/* Search */}
-          <div className="flex-1 min-w-0 flex items-center gap-3">
-            <SearchIcon />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Rechercher un client, une success story ou une battlecard…"
-              className="
-                w-full bg-transparent outline-none
-                text-white/85 placeholder:text-white/35
-                text-[13px]
-              "
-            />
+          <SearchIcon className="w-4 h-4 text-white/60 shrink-0" />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Rechercher un client, une success story ou une battlecard…"
+            className={cn(
+              "w-[392px] h-[21px]",
+              "bg-transparent outline-none",
+              "text-[14px] leading-[150%]",
+              "text-white/60 placeholder:text-white/60"
+            )}
+            style={{ fontFamily: "Bricolage Grotesque, system-ui", fontWeight: 400 }}
+          />
+        </div>
+
+        {/* ===== FILTERS WRAPPER (501x40) ===== */}
+        <div className="w-[501px] h-[40px] flex items-center gap-[8px]">
+          {/* ---- Filter 1 : Range (177x40) ---- */}
+          <div
+            className={cn(
+              "w-[177px] h-[40px]",
+              "rounded-full",
+              "p-[6px]",
+              "flex items-center gap-[8px]",
+              "bg-white/[0.05]",
+              "border border-white/20"
+            )}
+          >
+            <RangePill active={range === "7"} onClick={() => setRange("7")}>
+              7 jours
+            </RangePill>
+            <RangePill active={range === "30"} onClick={() => setRange("30")}>
+              30 jours
+            </RangePill>
           </div>
 
-          {/* Separator */}
-          <div className="hidden md:block h-7 w-px bg-white/10" />
+          {/* ---- Filter 2 : Sector (166x40) ---- */}
+          <div className="relative">
+            <SelectBox
+              width="w-[166px]"
+              label={sector.label}
+              open={openMenu === "sector"}
+              onClick={() => setOpenMenu(openMenu === "sector" ? null : "sector")}
+            />
+            {openMenu === "sector" && (
+              <Menu>
+                {sectorOptions.map((opt) => (
+                  <MenuItem
+                    key={opt.value}
+                    active={opt.value === sector.value}
+                    onClick={() => {
+                      setSector(opt);
+                      setOpenMenu(null);
+                    }}
+                  >
+                    {opt.label}
+                  </MenuItem>
+                ))}
+              </Menu>
+            )}
+          </div>
 
-          {/* Filters */}
-          <div className="flex items-center gap-2 shrink-0">
-            <div className="flex items-center rounded-full bg-white/[0.03] border border-white/10 p-1">
-              <Pill active={range === "7"} onClick={() => setRange("7")}>
-                7 jours
-              </Pill>
-              <Pill active={range === "30"} onClick={() => setRange("30")}>
-                30 jours
-              </Pill>
-            </div>
-
-            <div className="relative">
-              <SelectPill
-                label={sector.label}
-                open={openMenu === "sector"}
-                onClick={() => setOpenMenu(openMenu === "sector" ? null : "sector")}
-              />
-              {openMenu === "sector" && (
-                <Menu>
-                  {sectorOptions.map((opt) => (
-                    <MenuItem
-                      key={opt.value}
-                      active={opt.value === sector.value}
-                      onClick={() => {
-                        setSector(opt);
-                        setOpenMenu(null);
-                      }}
-                    >
-                      {opt.label}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              )}
-            </div>
-
-            <div className="relative">
-              <SelectPill
-                label={team.label}
-                open={openMenu === "team"}
-                onClick={() => setOpenMenu(openMenu === "team" ? null : "team")}
-              />
-              {openMenu === "team" && (
-                <Menu>
-                  {teamOptions.map((opt) => (
-                    <MenuItem
-                      key={opt.value}
-                      active={opt.value === team.value}
-                      onClick={() => {
-                        setTeam(opt);
-                        setOpenMenu(null);
-                      }}
-                    >
-                      {opt.label}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              )}
-            </div>
+          {/* ---- Filter 3 : Team (142x40) ---- */}
+          <div className="relative">
+            <SelectBox
+              width="w-[142px]"
+              label={team.label}
+              open={openMenu === "team"}
+              onClick={() => setOpenMenu(openMenu === "team" ? null : "team")}
+            />
+            {openMenu === "team" && (
+              <Menu>
+                {teamOptions.map((opt) => (
+                  <MenuItem
+                    key={opt.value}
+                    active={opt.value === team.value}
+                    onClick={() => {
+                      setTeam(opt);
+                      setOpenMenu(null);
+                    }}
+                  >
+                    {opt.label}
+                  </MenuItem>
+                ))}
+              </Menu>
+            )}
           </div>
         </div>
       </div>
@@ -141,9 +160,9 @@ export default function Topbar() {
   );
 }
 
-/* --- UI --- */
+/* ================= UI ================= */
 
-function Pill({
+function RangePill({
   children,
   active,
   onClick,
@@ -156,43 +175,72 @@ function Pill({
     <button
       type="button"
       onClick={onClick}
-      className={[
-        "h-8 px-3 rounded-full text-[12px] font-medium transition",
+      className={cn(
+        "h-[29px] min-h-[29px] min-w-[29px]",
+        "px-[16px] py-[4px]",
+        "rounded-full",
+        "whitespace-nowrap",
+        "flex items-center justify-center",
+        "transition",
         active
-          ? "bg-[#87DFFF]/20 text-[#87DFFF] border border-white/10"
-          : "text-white/70 hover:text-white/90 hover:bg-white/[0.04]",
-      ].join(" ")}
+          ? "bg-[#87DFFF] shadow-[0px_1px_2px_-1px_rgba(0,0,0,0.1),0px_1px_3px_0px_rgba(0,0,0,0.1)]"
+          : "bg-transparent"
+      )}
     >
-      {children}
+      <span
+        className={cn(active ? "text-[#032134]" : "text-white")}
+        style={{
+          fontFamily: "Bricolage Grotesque, system-ui",
+          fontWeight: active ? 700 : 400,
+          fontSize: 14,
+          lineHeight: "150%",
+        }}
+      >
+        {children}
+      </span>
     </button>
   );
 }
 
-function SelectPill({
+function SelectBox({
   label,
   open,
   onClick,
+  width,
 }: {
   label: string;
   open?: boolean;
   onClick?: () => void;
+  width: string;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={[
-        "h-8 px-3 rounded-full",
-        "bg-white/[0.03] border border-white/10",
-        "text-[12px] font-medium",
-        "transition flex items-center gap-2",
-        open
-          ? "text-white/95 bg-white/[0.06]"
-          : "text-white/75 hover:bg-white/[0.05] hover:text-white/90",
-      ].join(" ")}
+      className={cn(
+        width,
+        "h-[40px]",
+        "rounded-full",
+        "border border-white/20",
+        "bg-white/[0.05]",
+        "flex items-center justify-between",
+        "gap-[8px]",
+        "pl-[16px] pr-[12px] py-[8px]",
+        open && "bg-white/[0.07]"
+      )}
     >
-      <span className="max-w-[160px] truncate">{label}</span>
-      <ChevronDownIcon className={open ? "text-white/70" : "text-white/45"} />
+      <span
+        className="truncate text-white"
+        style={{
+          fontFamily: "Bricolage Grotesque, system-ui",
+          fontWeight: 400,
+          fontSize: 14,
+          lineHeight: "150%",
+        }}
+      >
+        {label}
+      </span>
+      <ChevronDownIcon className="w-4 h-4 text-white/70 shrink-0" />
     </button>
   );
 }
@@ -200,15 +248,12 @@ function SelectPill({
 function Menu({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="
-        absolute right-0 mt-2 z-50
-        w-56 rounded-2xl
-        bg-[#061f2e]/95
-        border border-white/10
-        shadow-xl
-        backdrop-blur-md
-        p-2
-      "
+      className={cn(
+        "absolute right-0 mt-2 z-50 w-56 rounded-2xl",
+        "bg-[#061f2e]/95",
+        "border border-white/10",
+        "backdrop-blur-md shadow-xl p-2"
+      )}
     >
       {children}
     </div>
@@ -228,21 +273,22 @@ function MenuItem({
     <button
       type="button"
       onClick={onClick}
-      className={[
-        "w-full text-left px-3 py-2 rounded-xl text-[12.5px] transition",
-        active
-          ? "bg-[#87DFFF]/15 text-[#87DFFF]"
-          : "text-white/80 hover:bg-white/[0.06] hover:text-white/95",
-      ].join(" ")}
+      className={cn(
+        "w-full text-left px-3 py-2 rounded-xl text-[13px] transition",
+        active ? "bg-[#87DFFF]/15 text-[#87DFFF]" : "text-white/80 hover:bg-white/[0.06]"
+      )}
+      style={{ fontFamily: "Bricolage Grotesque, system-ui" }}
     >
       {children}
     </button>
   );
 }
 
-function SearchIcon() {
+/* ================= ICONS ================= */
+
+function SearchIcon({ className = "" }: { className?: string }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-white/45">
+    <svg viewBox="0 0 24 24" fill="none" className={className}>
       <path
         d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z"
         stroke="currentColor"
@@ -255,7 +301,7 @@ function SearchIcon() {
 
 function ChevronDownIcon({ className = "" }: { className?: string }) {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className={className}>
+    <svg viewBox="0 0 24 24" fill="none" className={className}>
       <path
         d="M6 9l6 6 6-6"
         stroke="currentColor"

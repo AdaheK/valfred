@@ -1,14 +1,10 @@
-import { Sidebar } from "@/components/layout/Sidebar"
+import { Sidebar } from "@/components/layout/Sidebar";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen">
+    <div className="relative flex min-h-screen w-full overflow-hidden app-shell-bg">
       <Sidebar />
-
-      {/* zone content (à droite de la sidebar) */}
-      <div className="flex-1 min-w-0">
-        {children}
-      </div>
+      <div className="flex-1 min-w-0">{children}</div>
     </div>
   );
 }

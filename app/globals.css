@@ -1,3 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&display=swap");
 @import "tailwindcss";
 
+/* ---- Fond principal + glows façon Figma ---- */
+.app-shell-bg {
+  background-color: rgba(3, 33, 52, 1); /* Dark Blue */
+
+  /* 5 ellipses en radial-gradient (positions en % => responsive) */
+  background-image:
+    radial-gradient(550px 700px at 0% 0%, rgba(1, 69, 138, 1) 0%, rgba(1, 69, 138, 0) 60%),
+    radial-gradient(550px 700px at 90% 0%, rgba(43, 25, 132, 1) 0%, rgba(43, 25, 132, 0) 60%),
+    radial-gradient(550px 700px at 60% 0%, rgba(1, 69, 138, 1) 0%, rgba(1, 69, 138, 0) 60%),
+    radial-gradient(550px 700px at 30% 0%, rgba(0, 91, 149, 1) 0%, rgba(0, 91, 149, 0) 60%);
+
+  /* “blur 300px” rendu plus proche via diffusion + léger blur global */
+  filter: saturate(1.05);
+  background-repeat: no-repeat;
+}
+
+
