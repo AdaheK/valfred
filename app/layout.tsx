@@ -1,3 +1,4 @@
+// app/layout.tsx
 import "./globals.css";
 
 export default function RootLayout({
@@ -7,10 +8,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className="min-h-screen bg-[#032134] text-white">
-        <div className="mx-auto w-full max-w-[1440px] min-h-screen">
-          {children}
-        </div>
+      <body className="min-h-screen text-white">
+        {children}
       </body>
     </html>
   );
