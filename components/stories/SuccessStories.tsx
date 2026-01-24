@@ -160,7 +160,7 @@ export function SuccessStories() {
       {/* Header */}
       <div className="flex items-center gap-2 mb-6">
         <img
-          src="/icons/image 8.svg"
+          src="/icons/Sidebar/SuccessStoriesLogo.svg"
           alt=""
           className="w-[24px] h-[24px] opacity-100"
         />

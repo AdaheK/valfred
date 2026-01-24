@@ -34,11 +34,6 @@ export function PromptSuggestions() {
               transition-colors duration-200
             "
           >
-            <img
-              src="/icons/Exclude.svg"
-              alt=""
-              className="w-4 h-4 shrink-0 opacity-95"
-            />
 
             <span
               className="flex-1 text-[16px] leading-[150%] text-white"

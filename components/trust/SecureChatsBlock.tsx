@@ -224,7 +224,7 @@ export function SecureChatsBlock() {
     <section className="mx-auto w-full max-w-6xl">
       {/* Header */}
       <div className="flex items-center gap-2 mb-5">
-        <img src="/icons/image 13.svg" alt="" className="w-6 h-6" />
+        <img src="/icons/Sidebar/SecureChatLogo.svg" alt="" className="w-6 h-6" />
         <h2 className="font-['Bricolage_Grotesque'] font-bold text-[20px] leading-[120%] tracking-[-0.02em] text-white">
           Vos chats sécurisés
         </h2>

@@ -69,7 +69,7 @@ export function BattleCards() {
     <section className="mx-auto w-full max-w-6xl">
       {/* Header */}
       <div className="flex items-center gap-2 mb-6">
-        <img src="/icons/image 9.svg" alt="" className="w-6 h-6 opacity-100" />
+        <img src="/icons/Sidebar/BattleCardsLogo.svg" alt="" className="w-6 h-6 opacity-100" />
         <h2
           className="
             font-['Bricolage_Grotesque']

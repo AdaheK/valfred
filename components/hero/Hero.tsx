@@ -5,31 +5,36 @@ export function Hero() {
   return (
     <section className="pt-4">
       <div className="mx-auto w-full max-w-[1126px]">
-        {/* Groupe (titre + input + suggestions) empilé */}
+        {/* Groupe (titre + input + suggestions) */}
         <div className="mx-auto flex w-full flex-col items-center gap-10">
-          {/* ===== Titre (698x42) ===== */}
-          <div className="flex w-full max-w-[698px] items-center justify-center gap-3">
-            <img src="/icons/Exclude.svg" alt="logo" className="h-9 w-9" />
+          {/* ===== Titre ===== */}
+          <div className="flex w-full max-w-[698px] items-center justify-center">
             <h1
               className="
                 text-center
-                text-[38px] leading-[42px]
-                font-extrabold
-                text-[#BFEFFF]
-                whitespace-nowrap
+                text-[42px]
+                leading-[100%]
+                font-bold
+                tracking-[-0.02em]
+                bg-clip-text text-transparent
+                pb-[6px]
               "
-              style={{ fontFamily: "Bricolage Grotesque, system-ui" }}
+              style={{
+                fontFamily: "Outfit, system-ui",
+                backgroundImage:
+                  "linear-gradient(90deg, #0281FF 0%, #DA98CC 50%, #FFFFFF 100%)",
+              }}
             >
               Bonjour, comment je peux t’aider ?
             </h1>
           </div>
 
-          {/* ===== Input (682x120) ===== */}
+          {/* ===== Input ===== */}
           <div className="w-full flex justify-center">
             <PromptInput />
           </div>
 
-          {/* ===== Suggestions (682x218) ===== */}
+          {/* ===== Suggestions ===== */}
           <div className="w-full flex justify-center">
             <PromptSuggestions />
           </div>

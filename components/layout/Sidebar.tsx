@@ -15,14 +15,14 @@ export function Sidebar() {
 
   const links: LinkItem[] = useMemo(
     () => [
-      { name: "Dashboard", icon: "/icons/image 6.svg", href: "/" },
-      { name: "Clients", icon: "/icons/image 7.svg", href: "/clients" },
-      { name: "Success stories", icon: "/icons/image 8.svg", href: "/success-stories" },
-      { name: "Battlecards", icon: "/icons/image 9.svg", href: "/battlecards" },
-      { name: "Analytics", icon: "/icons/image 10.svg", href: "/analytics" },
-      { name: "Proof page", icon: "/icons/image 11.svg", href: "/proof-page" },
-      { name: "AI Copilot", icon: "/icons/image 12.svg", href: "/ai-copilot" },
-      { name: "Chats sécurisés", icon: "/icons/image 13.svg", href: "/secure-chats" },
+      { name: "Dashboard", icon: "/icons/Sidebar/DashboardLogo.svg", href: "/" },
+      { name: "Clients", icon: "/icons/Sidebar/ClientsLogo.svg", href: "/clients" },
+      { name: "Success stories", icon: "/icons/Sidebar/SuccessStoriesLogo.svg", href: "/success-stories" },
+      { name: "Battlecards", icon: "/icons/Sidebar/BattleCardsLogo.svg", href: "/battlecards" },
+      { name: "Analytics", icon: "/icons/Sidebar/AnalyticsLogo.svg", href: "/analytics" },
+      { name: "Proof page", icon: "/icons/Sidebar/ProofPageLogo.svg", href: "/proof-page" },
+      { name: "AI Copilot", icon: "/icons/Sidebar/CopilotLogo.svg", href: "/ai-copilot" },
+      { name: "Chats sécurisés", icon: "/icons/Sidebar/SecureChatLogo.svg", href: "/secure-chats" },
     ],
     []
   );
@@ -34,33 +34,23 @@ export function Sidebar() {
         "flex flex-col justify-between",
         "px-4 py-6",
         "bg-white/[0.05]",
-        "border-r border-white/20"
+        "border-r border-white/20",
+        "rounded-tr-[24px]"
       )}
     >
       {/* ===== Bloc haut ===== */}
-      <div className="w-[202px] flex flex-col gap-6">
-        {/* Logo */}
-        <div className="w-[137px] h-[32px] flex items-center gap-[13px]">
+      <div className="w-full flex flex-col gap-8">
+        {/* ✅ LOGO centré + plus grand */}
+        <div className="w-full flex justify-center pt-2 pb-2">
           <img
-            src="/icons/Exclude.svg"
-            alt="logo"
-            className="w-[31.3049px] h-[31.3573px]"
+            src="/icons/Logo-Valfred 4.svg"
+            alt="Valfred"
+            className="w-[110px] h-auto -translate-x-8"
           />
-          <span
-            className="text-[#87DFFF] font-semibold"
-            style={{
-              fontFamily: "Bricolage Grotesque, ui-sans-serif, system-ui",
-              fontSize: 28,
-              lineHeight: "32px",
-              letterSpacing: "0%",
-            }}
-          >
-            valfred
-          </span>
         </div>
 
         {/* Tabs */}
-        <nav className="w-[202px] flex flex-col gap-[2px]">
+        <nav className="w-[202px] mx-auto flex flex-col gap-[2px]">
           {links.map((link) => {
             const isActive = pathname === link.href;
 
@@ -103,7 +93,7 @@ export function Sidebar() {
       </div>
 
       {/* ===== Profil ===== */}
-      <div className="w-[202px]">
+      <div className="w-[202px] mx-auto">
         <button
           className={cn(
             "w-[202px] h-[48px]",

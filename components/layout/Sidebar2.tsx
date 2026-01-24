@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 
-type LinkItem = { name: string; icon: string; href: string };
+type NavItem = { name: string; href: string; icon: string };
 
 function cn(...classes: Array<string | false | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -13,54 +13,53 @@ function cn(...classes: Array<string | false | undefined>) {
 export function Sidebar2() {
   const pathname = usePathname();
 
-  const links: LinkItem[] = useMemo(
+  const links: NavItem[] = useMemo(
     () => [
-      { name: "Dashboard", icon: "/icons/image 6.svg", href: "/" },
-      { name: "Clients", icon: "/icons/image 7.svg", href: "/clients" },
-      { name: "Success stories", icon: "/icons/image 8.svg", href: "/success-stories" },
-      { name: "Battlecards", icon: "/icons/image 9.svg", href: "/battlecards" },
-      { name: "Analytics", icon: "/icons/image 10.svg", href: "/analytics" },
-      { name: "Proof page", icon: "/icons/image 11.svg", href: "/proof" },
-      { name: "AI Copilot", icon: "/icons/image 12.svg", href: "/copilot" },
-      { name: "Chats sécurisés", icon: "/icons/image 13.svg", href: "/secure-chats" },
+      { name: "Dashboard", href: "/", icon: "/icons/Sidebar/DashboardLogo.svg" },
+      { name: "Clients", href: "/clients", icon: "/icons/Sidebar/ClientsLogo.svg" },
+      { name: "Success stories", href: "/success-stories", icon: "/icons/Sidebar/SuccessStoriesLogo.svg" },
+      { name: "Battlecards", href: "/battlecards", icon: "/icons/Sidebar/BattleCardsLogo.svg" },
+      { name: "Analytics", href: "/analytics", icon: "/icons/Sidebar/AnalyticsLogo.svg" },
+      { name: "Proof page", href: "/proof", icon: "/icons/Sidebar/ProofPageLogo.svg" },
+      { name: "AI Copilot", href: "/ai-copilot", icon: "/icons/Sidebar/CopilotLogo.svg" },
+      { name: "Chats sécurisés", href: "/secure-chats", icon: "/icons/Sidebar/SecureChatLogo.svg" },
     ],
     []
   );
 
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname?.startsWith(href + "/");
+  };
+
   return (
     <aside
       className={cn(
-        "w-[234px]",
-        "h-screen",               // ✅ fixe (hauteur écran)
-        "sticky top-0",           // ✅ ne bouge pas au scroll de la page
+        "w-[234px] shrink-0",
+        "h-screen sticky top-0",
         "flex flex-col justify-between",
         "px-4 py-6",
         "bg-white/[0.05]",
-        "border-r border-white/20"
+        "border-r border-white/20",
+        "rounded-tr-[24px]" // ✅ arrondi haut droite
       )}
     >
-      {/* Bloc haut */}
+      {/* Top */}
       <div className="w-[202px] flex flex-col gap-6">
-        <div className="w-[137px] h-[32px] flex items-center gap-[13px]">
-          <img src="/icons/Exclude.svg" alt="logo" className="w-[31px] h-[31px]" />
-          <span
-            className="text-[#87DFFF] font-semibold"
-            style={{
-              fontFamily: "Bricolage Grotesque, ui-sans-serif, system-ui",
-              fontSize: 28,
-              lineHeight: "32px",
-            }}
-          >
-            valfred
-          </span>
+        {/* ✅ Logo : agrandi, centré, et décalé à gauche */}
+        <div className="w-full flex justify-center pt-2 pb-2">
+          <img
+            src="/icons/Logo-Valfred 4.svg"
+            alt="logo"
+            className="w-[110px] h-auto -translate-x-8"
+            draggable={false}
+          />
         </div>
 
+        {/* Nav */}
         <nav className="w-[202px] flex flex-col gap-[2px]">
           {links.map((link) => {
-            const isActive =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
+            const active = isActive(link.href);
 
             return (
               <Link
@@ -70,21 +69,23 @@ export function Sidebar2() {
                   "w-[202px] h-[48px]",
                   "flex items-center gap-2",
                   "px-6 py-2",
-                  isActive
-                    ? "rounded-full bg-white/[0.05] border border-white/20"
-                    : "rounded-lg hover:bg-white/[0.04] transition"
+                  active
+                    ? cn("rounded-full", "bg-white/[0.05]", "border border-white/20")
+                    : cn("rounded-lg", "hover:bg-white/[0.04] transition")
                 )}
               >
                 <img
                   src={link.icon}
                   alt=""
-                  className={cn("w-4 h-4", isActive ? "opacity-100" : "opacity-90")}
+                  className={cn("w-4 h-4", active ? "opacity-100" : "opacity-90")}
+                  draggable={false}
                 />
+
                 <span
-                  className={cn(isActive ? "text-[#87DFFF]" : "text-white")}
+                  className={cn(active ? "text-[#87DFFF]" : "text-white")}
                   style={{
                     fontFamily: "Bricolage Grotesque, ui-sans-serif, system-ui",
-                    fontWeight: isActive ? 700 : 400,
+                    fontWeight: active ? 700 : 400,
                     fontSize: 14,
                     lineHeight: "150%",
                   }}
@@ -97,9 +98,10 @@ export function Sidebar2() {
         </nav>
       </div>
 
-      {/* Bloc bas profil */}
+      {/* Bottom profile */}
       <div className="w-[202px]">
         <button
+          type="button"
           className={cn(
             "w-[202px] h-[48px]",
             "flex items-center gap-2",
@@ -110,8 +112,8 @@ export function Sidebar2() {
             "hover:bg-white/[0.12] transition"
           )}
         >
-          <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-white/20">
-            <img src="/icons/Ellipse 1.svg" alt="avatar" className="w-8 h-8 object-cover" />
+          <div className={cn("w-8 h-8 rounded-full overflow-hidden shrink-0", "border border-white/20")}>
+            <img src="/icons/Ellipse 1.svg" alt="avatar" className="w-8 h-8 object-cover" draggable={false} />
           </div>
 
           <span
@@ -121,12 +123,13 @@ export function Sidebar2() {
               fontWeight: 400,
               fontSize: 14,
               lineHeight: "150%",
+              letterSpacing: "0.5%",
             }}
           >
             William Dupont
           </span>
 
-          <img src="/icons/Frame.svg" alt="" className="ml-auto w-4 h-4 opacity-90" />
+          <img src="/icons/Frame.svg" alt="" className="ml-auto w-4 h-4 opacity-90" draggable={false} />
         </button>
       </div>
     </aside>
